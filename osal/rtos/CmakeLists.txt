@@ -1,0 +1,12 @@
+## this is a quick switch to decide what to use at link time
+add_library(rtos_lib INTERFACE )
+target_link_libraries( rtos_lib INTERFACE osal)
+
+if(LINK_SWITCH_BACKEND)
+    target_include_directories(rtos_lib INTERFACE unix_rtos)
+
+else ()
+    target_include_directories(rtos_lib INTERFACE dummy_rtos)
+endif(LINK_SWITCH_BACKEND)
+
+# this is to simulate linktime switches

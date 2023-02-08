@@ -1,0 +1,600 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: my_project
+# Configurations: 
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/osobiehl/boost_queues/build/
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target simulation
+
+
+#############################################
+# Order-only phony target for simulation
+
+build cmake_object_order_depends_target_simulation: phony || CMakeFiles/simulation.dir
+
+build CMakeFiles/simulation.dir/simulation.cpp.o: CXX_COMPILER__simulation_ /Users/osobiehl/boost_queues/simulation.cpp || cmake_object_order_depends_target_simulation
+  DEP_FILE = CMakeFiles/simulation.dir/simulation.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/Users/osobiehl/boost_queues/. -I/Users/osobiehl/boost_queues/communication/include -I/Users/osobiehl/boost_queues/osal/interfaces
+  OBJECT_DIR = CMakeFiles/simulation.dir
+  OBJECT_FILE_DIR = CMakeFiles/simulation.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target simulation
+
+
+#############################################
+# Link the static library libsimulation.a
+
+build libsimulation.a: CXX_STATIC_LIBRARY_LINKER__simulation_ CMakeFiles/simulation.dir/simulation.cpp.o
+  ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = CMakeFiles/simulation.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libsimulation.a
+  TARGET_PDB = simulation.a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target main_linktime
+
+
+#############################################
+# Order-only phony target for main_linktime
+
+build cmake_object_order_depends_target_main_linktime: phony || cmake_object_order_depends_target_mac_linktime cmake_object_order_depends_target_simulation
+
+build CMakeFiles/main_linktime.dir/main_linktime.cpp.o: CXX_COMPILER__main_linktime_ /Users/osobiehl/boost_queues/main_linktime.cpp || cmake_object_order_depends_target_main_linktime
+  DEP_FILE = CMakeFiles/main_linktime.dir/main_linktime.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/Users/osobiehl/boost_queues/osal/interfaces -I/Users/osobiehl/boost_queues/osal/rtos/unix_rtos -I/Users/osobiehl/boost_queues/communication/include -I/Users/osobiehl/boost_queues/. -I/Users/osobiehl/boost_queues/communication/linktime/.
+  OBJECT_DIR = CMakeFiles/main_linktime.dir
+  OBJECT_FILE_DIR = CMakeFiles/main_linktime.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target main_linktime
+
+
+#############################################
+# Link the executable main_linktime
+
+build main_linktime: CXX_EXECUTABLE_LINKER__main_linktime_ CMakeFiles/main_linktime.dir/main_linktime.cpp.o | libsimulation.a communication/linktime/libmac_linktime.a || communication/linktime/libmac_linktime.a libsimulation.a
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = libsimulation.a  communication/linktime/libmac_linktime.a
+  OBJECT_DIR = CMakeFiles/main_linktime.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = main_linktime
+  TARGET_PDB = main_linktime.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target main_injection
+
+
+#############################################
+# Order-only phony target for main_injection
+
+build cmake_object_order_depends_target_main_injection: phony || cmake_object_order_depends_target_mac_injection cmake_object_order_depends_target_simulation cmake_object_order_depends_target_unix_injection_lib
+
+build CMakeFiles/main_injection.dir/main_injection.cpp.o: CXX_COMPILER__main_injection_ /Users/osobiehl/boost_queues/main_injection.cpp || cmake_object_order_depends_target_main_injection
+  DEP_FILE = CMakeFiles/main_injection.dir/main_injection.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/Users/osobiehl/boost_queues/osal/interfaces -I/Users/osobiehl/boost_queues/communication/include -I/Users/osobiehl/boost_queues/. -I/Users/osobiehl/boost_queues/communication/injection/. -I/Users/osobiehl/boost_queues/communication/injection/locator/include -I/Users/osobiehl/boost_queues/osal/unix_injection/.
+  OBJECT_DIR = CMakeFiles/main_injection.dir
+  OBJECT_FILE_DIR = CMakeFiles/main_injection.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target main_injection
+
+
+#############################################
+# Link the executable main_injection
+
+build main_injection: CXX_EXECUTABLE_LINKER__main_injection_ CMakeFiles/main_injection.dir/main_injection.cpp.o | libsimulation.a communication/injection/libmac_injection.a communication/injection/locator/libunix_injection_lib.a communication/injection/locator/libunix_injection_lib.a || communication/injection/libmac_injection.a communication/injection/locator/libunix_injection_lib.a libsimulation.a
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = libsimulation.a  communication/injection/libmac_injection.a  communication/injection/locator/libunix_injection_lib.a  communication/injection/locator/libunix_injection_lib.a
+  OBJECT_DIR = CMakeFiles/main_injection.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = main_injection
+  TARGET_PDB = main_injection.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build osal/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build osal/edit_cache: phony osal/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build osal/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build osal/rebuild_cache: phony osal/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/osal/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build osal/rtos/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal/rtos && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build osal/rtos/edit_cache: phony osal/rtos/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build osal/rtos/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal/rtos && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build osal/rtos/rebuild_cache: phony osal/rtos/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/osal/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build osal/unix_injection/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal/unix_injection && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build osal/unix_injection/edit_cache: phony osal/unix_injection/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build osal/unix_injection/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/osal/unix_injection && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build osal/unix_injection/rebuild_cache: phony osal/unix_injection/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build communication/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build communication/edit_cache: phony communication/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build communication/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build communication/rebuild_cache: phony communication/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/communication/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target mac_linktime
+
+
+#############################################
+# Order-only phony target for mac_linktime
+
+build cmake_object_order_depends_target_mac_linktime: phony || communication/linktime/CMakeFiles/mac_linktime.dir
+
+build communication/linktime/CMakeFiles/mac_linktime.dir/linktime_mac.cpp.o: CXX_COMPILER__mac_linktime_ /Users/osobiehl/boost_queues/communication/linktime/linktime_mac.cpp || cmake_object_order_depends_target_mac_linktime
+  DEP_FILE = communication/linktime/CMakeFiles/mac_linktime.dir/linktime_mac.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/Users/osobiehl/boost_queues/communication/linktime/. -I/Users/osobiehl/boost_queues/communication/include -I/Users/osobiehl/boost_queues/osal/interfaces -I/Users/osobiehl/boost_queues/osal/rtos/unix_rtos
+  OBJECT_DIR = communication/linktime/CMakeFiles/mac_linktime.dir
+  OBJECT_FILE_DIR = communication/linktime/CMakeFiles/mac_linktime.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target mac_linktime
+
+
+#############################################
+# Link the static library communication/linktime/libmac_linktime.a
+
+build communication/linktime/libmac_linktime.a: CXX_STATIC_LIBRARY_LINKER__mac_linktime_ communication/linktime/CMakeFiles/mac_linktime.dir/linktime_mac.cpp.o
+  ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = communication/linktime/CMakeFiles/mac_linktime.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = communication/linktime/libmac_linktime.a
+  TARGET_PDB = mac_linktime.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build communication/linktime/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/linktime && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build communication/linktime/edit_cache: phony communication/linktime/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build communication/linktime/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/linktime && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build communication/linktime/rebuild_cache: phony communication/linktime/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/communication/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target mac_injection
+
+
+#############################################
+# Order-only phony target for mac_injection
+
+build cmake_object_order_depends_target_mac_injection: phony || communication/injection/CMakeFiles/mac_injection.dir
+
+build communication/injection/CMakeFiles/mac_injection.dir/injection_mac.cpp.o: CXX_COMPILER__mac_injection_ /Users/osobiehl/boost_queues/communication/injection/injection_mac.cpp || cmake_object_order_depends_target_mac_injection
+  DEP_FILE = communication/injection/CMakeFiles/mac_injection.dir/injection_mac.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/Users/osobiehl/boost_queues/communication/injection/. -I/Users/osobiehl/boost_queues/communication/include -I/Users/osobiehl/boost_queues/osal/interfaces
+  OBJECT_DIR = communication/injection/CMakeFiles/mac_injection.dir
+  OBJECT_FILE_DIR = communication/injection/CMakeFiles/mac_injection.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target mac_injection
+
+
+#############################################
+# Link the static library communication/injection/libmac_injection.a
+
+build communication/injection/libmac_injection.a: CXX_STATIC_LIBRARY_LINKER__mac_injection_ communication/injection/CMakeFiles/mac_injection.dir/injection_mac.cpp.o
+  ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = communication/injection/CMakeFiles/mac_injection.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = communication/injection/libmac_injection.a
+  TARGET_PDB = mac_injection.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build communication/injection/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/injection && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build communication/injection/edit_cache: phony communication/injection/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build communication/injection/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/injection && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build communication/injection/rebuild_cache: phony communication/injection/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/osobiehl/boost_queues/communication/injection/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target rtos_injection_lib
+
+
+#############################################
+# Order-only phony target for rtos_injection_lib
+
+build cmake_object_order_depends_target_rtos_injection_lib: phony || cmake_object_order_depends_target_unix_injection_lib
+
+build communication/injection/locator/CMakeFiles/rtos_injection_lib.dir/rtos/locator.cpp.o: CXX_COMPILER__rtos_injection_lib_ /Users/osobiehl/boost_queues/communication/injection/locator/rtos/locator.cpp || cmake_object_order_depends_target_rtos_injection_lib
+  DEP_FILE = communication/injection/locator/CMakeFiles/rtos_injection_lib.dir/rtos/locator.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/Users/osobiehl/boost_queues/communication/injection/locator/include -I/Users/osobiehl/boost_queues/osal/interfaces -I/Users/osobiehl/boost_queues/osal/unix_injection/. -I/Users/osobiehl/boost_queues/osal/rtos/unix_rtos
+  OBJECT_DIR = communication/injection/locator/CMakeFiles/rtos_injection_lib.dir
+  OBJECT_FILE_DIR = communication/injection/locator/CMakeFiles/rtos_injection_lib.dir/rtos
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target rtos_injection_lib
+
+
+#############################################
+# Link the static library communication/injection/locator/librtos_injection_lib.a
+
+build communication/injection/locator/librtos_injection_lib.a: CXX_STATIC_LIBRARY_LINKER__rtos_injection_lib_ communication/injection/locator/CMakeFiles/rtos_injection_lib.dir/rtos/locator.cpp.o || communication/injection/locator/libunix_injection_lib.a
+  ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = communication/injection/locator/CMakeFiles/rtos_injection_lib.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = communication/injection/locator/librtos_injection_lib.a
+  TARGET_PDB = rtos_injection_lib.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target unix_injection_lib
+
+
+#############################################
+# Order-only phony target for unix_injection_lib
+
+build cmake_object_order_depends_target_unix_injection_lib: phony || communication/injection/locator/CMakeFiles/unix_injection_lib.dir
+
+build communication/injection/locator/CMakeFiles/unix_injection_lib.dir/unix/locator.cpp.o: CXX_COMPILER__unix_injection_lib_ /Users/osobiehl/boost_queues/communication/injection/locator/unix/locator.cpp || cmake_object_order_depends_target_unix_injection_lib
+  DEP_FILE = communication/injection/locator/CMakeFiles/unix_injection_lib.dir/unix/locator.cpp.o.d
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++17
+  INCLUDES = -I/Users/osobiehl/boost_queues/communication/injection/locator/include -I/Users/osobiehl/boost_queues/osal/interfaces -I/Users/osobiehl/boost_queues/osal/unix_injection/.
+  OBJECT_DIR = communication/injection/locator/CMakeFiles/unix_injection_lib.dir
+  OBJECT_FILE_DIR = communication/injection/locator/CMakeFiles/unix_injection_lib.dir/unix
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target unix_injection_lib
+
+
+#############################################
+# Link the static library communication/injection/locator/libunix_injection_lib.a
+
+build communication/injection/locator/libunix_injection_lib.a: CXX_STATIC_LIBRARY_LINKER__unix_injection_lib_ communication/injection/locator/CMakeFiles/unix_injection_lib.dir/unix/locator.cpp.o
+  ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  OBJECT_DIR = communication/injection/locator/CMakeFiles/unix_injection_lib.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = communication/injection/locator/libunix_injection_lib.a
+  TARGET_PDB = unix_injection_lib.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build communication/injection/locator/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/injection/locator && /usr/local/Cellar/cmake/3.23.0/bin/ccmake -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build communication/injection/locator/edit_cache: phony communication/injection/locator/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build communication/injection/locator/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/osobiehl/boost_queues/build/communication/injection/locator && /usr/local/Cellar/cmake/3.23.0/bin/cmake --regenerate-during-build -S/Users/osobiehl/boost_queues -B/Users/osobiehl/boost_queues/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build communication/injection/locator/rebuild_cache: phony communication/injection/locator/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+build libmac_injection.a: phony communication/injection/libmac_injection.a
+
+build libmac_linktime.a: phony communication/linktime/libmac_linktime.a
+
+build librtos_injection_lib.a: phony communication/injection/locator/librtos_injection_lib.a
+
+build libunix_injection_lib.a: phony communication/injection/locator/libunix_injection_lib.a
+
+build mac_injection: phony communication/injection/libmac_injection.a
+
+build mac_linktime: phony communication/linktime/libmac_linktime.a
+
+build rtos_injection_lib: phony communication/injection/locator/librtos_injection_lib.a
+
+build simulation: phony libsimulation.a
+
+build unix_injection_lib: phony communication/injection/locator/libunix_injection_lib.a
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build
+
+build all: phony libsimulation.a main_linktime main_injection osal/all communication/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/communication
+
+build communication/all: phony communication/linktime/all communication/injection/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/communication/injection
+
+build communication/injection/all: phony communication/injection/libmac_injection.a communication/injection/locator/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/communication/injection/locator
+
+build communication/injection/locator/all: phony communication/injection/locator/librtos_injection_lib.a communication/injection/locator/libunix_injection_lib.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/communication/linktime
+
+build communication/linktime/all: phony communication/linktime/libmac_linktime.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/osal
+
+build osal/all: phony osal/rtos/all osal/unix_injection/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/osal/rtos
+
+build osal/rtos/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/osobiehl/boost_queues/build/osal/unix_injection
+
+build osal/unix_injection/all: phony
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../communication/CMakeLists.txt ../communication/injection/CMakeLists.txt ../communication/injection/locator/CMakeLists.txt ../communication/linktime/CMakeLists.txt ../osal/CMakeLists.txt ../osal/rtos/CMakeLists.txt ../osal/unix_injection/CMakeLists.txt /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeFindDependencyMacro.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckCSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckIncludeFile.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckLibraryExists.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindBoost.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindPackageMessage.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindThreads.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Internal/CheckSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.80.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.80.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.80.0.cmake /usr/local/lib/cmake/boost_headers-1.80.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.80.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_thread-1.80.0/boost_thread-config-version.cmake /usr/local/lib/cmake/boost_thread-1.80.0/boost_thread-config.cmake /usr/local/lib/cmake/boost_thread-1.80.0/libboost_thread-variant-mt-shared.cmake /usr/local/lib/cmake/boost_thread-1.80.0/libboost_thread-variant-mt-static.cmake CMakeCache.txt CMakeFiles/3.23.0/CMakeCCompiler.cmake CMakeFiles/3.23.0/CMakeCXXCompiler.cmake CMakeFiles/3.23.0/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build ../CMakeLists.txt ../communication/CMakeLists.txt ../communication/injection/CMakeLists.txt ../communication/injection/locator/CMakeLists.txt ../communication/linktime/CMakeLists.txt ../osal/CMakeLists.txt ../osal/rtos/CMakeLists.txt ../osal/unix_injection/CMakeLists.txt /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCXXInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeFindDependencyMacro.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeGenericSystem.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckCSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckIncludeFile.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/CheckLibraryExists.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/Clang.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Compiler/GNU.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindBoost.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindPackageMessage.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/FindThreads.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Internal/CheckSourceCompiles.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-AppleClang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang-C.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang-CXX.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Apple-Clang.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Darwin-Initialize.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/Darwin.cmake /usr/local/Cellar/cmake/3.23.0/share/cmake/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.80.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.80.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.80.0.cmake /usr/local/lib/cmake/boost_headers-1.80.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.80.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_thread-1.80.0/boost_thread-config-version.cmake /usr/local/lib/cmake/boost_thread-1.80.0/boost_thread-config.cmake /usr/local/lib/cmake/boost_thread-1.80.0/libboost_thread-variant-mt-shared.cmake /usr/local/lib/cmake/boost_thread-1.80.0/libboost_thread-variant-mt-static.cmake CMakeCache.txt CMakeFiles/3.23.0/CMakeCCompiler.cmake CMakeFiles/3.23.0/CMakeCXXCompiler.cmake CMakeFiles/3.23.0/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

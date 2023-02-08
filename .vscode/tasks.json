@@ -1,0 +1,17 @@
+{
+	"tasks": [
+		{
+			"label": "build and make rtos",
+			"type": "shell",
+			"command": "cmake -S . -B build -GNinja && cd build && ninja",
+			"problemMatcher": []
+		},
+		{
+			"label": "build and make with substitutions",
+			"type": "shell",
+			"command": "cmake -S . -B build -GNinja -DLINK_SWITCH_BACKEND=ON -DINJECT_SWITCH_BACKEND=ON  && cd build && ninja",
+			"problemMatcher": []
+		}
+	]
+
+}

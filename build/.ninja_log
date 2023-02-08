@@ -1,0 +1,15 @@
+# ninja log v5
+9	1346	1675718278559191822	communication/injection/CMakeFiles/mac_injection.dir/injection_mac.cpp.o	645a7e514fc4c039
+1258	1306	1675718318951139000	communication/linktime/libmac_linktime.a	4a46d5a8d091c9a2
+0	1795	1675718279007105066	CMakeFiles/simulation.dir/simulation.cpp.o	fc9cad29a62bdd5f
+1349	1409	1675718278630395000	communication/injection/libmac_injection.a	2f8042fe23d7643a
+1254	1302	1675718318946547000	communication/injection/locator/librtos_injection_lib.a	c0fdfb9ef9b74837
+6	1205	1675718318838614288	communication/injection/locator/CMakeFiles/rtos_injection_lib.dir/rtos/locator.cpp.o	fb33a4b6239cd3e7
+7	1206	1675718318841828833	communication/injection/locator/CMakeFiles/unix_injection_lib.dir/unix/locator.cpp.o	c10c31693ddec69f
+1254	1345	1675718318986374418	main_injection	3bb77f40c2362c8
+4	1243	1675718318877809198	CMakeFiles/main_linktime.dir/main_linktime.cpp.o	70eabfb66b4b1d1f
+4	1034	1675718318666678375	CMakeFiles/main_injection.dir/main_injection.cpp.o	7ce35763f61c7c54
+5	1258	1675718318893871827	communication/linktime/CMakeFiles/mac_linktime.dir/linktime_mac.cpp.o	a4d46afec00b037
+1306	1383	1675718319024612361	main_linktime	b8071fd7c22ac6c
+1207	1254	1675718318898406000	communication/injection/locator/libunix_injection_lib.a	aa14c6916a12a15e
+1795	1840	1675718279061945000	libsimulation.a	36aa292689543283
